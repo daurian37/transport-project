@@ -1,0 +1,61 @@
+
+<button class="btn btn-danger"><a href="../liste" > Retour</a></button>
+    <br><br>
+    <h3 style="text-align: center;color: green;	"><b>Suivi des transactions effectuées</b></h3>
+
+    <div class="col-md-10">
+
+		<div style="margin-left:15%;">
+			<br>
+
+			<label class="form-label form-inline">Pour rechercher une réservation veuillez entrer le numéro de référence</label>
+
+				
+					<input class="form-control" name="searchInput"  #searchInput="ngModel" [(ngModel)]="searchText"  placeholder="Type a name to search...">
+								
+
+			</div>
+<br>
+				<table class="table table-dark table-striped">
+					<thead> 
+						<th> Référence </th>
+						<th> Montant </th>
+						<th> Methode de paiement </th>
+						<th> statut</th>
+						<th> Date de transaction</th>
+						<th> ID de transaction</th>
+						<th> payment ID</th>
+						
+						
+						
+					</thead>
+				<ng-container *ngFor="let transaction of transactions"> 
+					<tr *ngIf="filterCondition(transaction)"> 
+						<td>{{ transaction.Reference }}</td>
+						<td>{{ transaction.amount }}</td>
+						<td>{{ transaction.PaymentMethod }}</td>
+						<td>{{ transaction.status }}</td>
+						<td>{{ transaction.transaction_date }}</td>
+						<td>{{ transaction.transaction_id }}</td>
+						<td>{{ transaction.id  }}</td>
+						
+												
+						<td>
+							
+	<button *ngIf="transaction.transaction_date < test" class="btn btn-outline-danger" (click)="onDeleted(transaction.id)">Delete</button>
+							
+						</td>
+					</tr>
+				</ng-container>
+				</table>
+
+				
+
+		
+	</div>
+
+
+
+<br><br><br>   
+
+

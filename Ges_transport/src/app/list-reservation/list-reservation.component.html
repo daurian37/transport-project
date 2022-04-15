@@ -1,0 +1,334 @@
+<br><br>
+
+<div class="p-0 mr-5 mt-5">
+    
+    <nav class="boutton_connexion">
+        <ul>
+            <li><button *ngIf="!user" (click)="register()" class="btn btn-primary btn-default px-5"> Creer un compte </button></li>
+			<li><button *ngIf="user" (click)="logout()" class="btn btn-danger btn-default px-5"> Déconnexion </button></li>
+			<li><button *ngIf="!user" (click)="login()" class="btn btn-success btn-default px-5"> Se connecter</button></li>
+        </ul>
+    </nav>
+</div>
+<br><br><br>  
+
+<!--div *ngIf="reservations?.length > 0;else noReservations"--> 
+	<h1 style="color: green; text-align: center;"><p *ngIf="user">Connecté sur: {{ user?.displayName }}</p></h1>
+<br>
+
+
+	<div class="row">
+
+		<div class="col-md-10"  style="margin-left:80px;background-color: lightblue;">
+
+			<p><b> Enregistrement et validation d'une reservation sur DB-Services depuis votre agence</b></p>
+			<p style="color: red; text-align: center;"> <b> ATTENTION: Une réservation déja valider ne peut
+				 plus être modifier. Veuillez vérifier
+				attentivement tout les champs du formulaire avant toutes validation </b>
+			</p>
+			<form [formGroup]="myGroup" (ngSubmit)="onSubmit()" class="row g-4" autocomplete="off" >
+
+				<input type="hidden"  id="toName" value="daurian" 
+                        placeholder="destinataire">
+
+						<input type="hidden" value="{{user?.displayName}}"
+						id="fromName"  required>
+
+							 <input type="hidden" value="une réservation à été soumis à 
+							 {{user?.displayName}}  à la date du {{ test }}
+							 il s'agit de {{myGroup.get('nom').value}}-{{myGroup.get('prenom').value}}, numero de 
+							 portable {{myGroup.get('telephone').value}} .
+							  depart {{myGroup.get('depart').value}} à destination de
+							   {{myGroup.get('destination').value}} voyage reservé pour le
+							 {{myGroup.get('dateReservation').value}} à {{myGroup.get('heureDepart').value}} 
+							 en attente de paiement"
+                             id="msg" required>
+ 
+							 <input type="hidden" value="{{user?.displayName}}"
+                             id="agency" required>
+							 <input type="hidden" value="{{test}}"
+                             id="date" required>
+
+							 <input type="hidden" value="{{myGroup.get('nom').value}}"
+						id="name"	required>
+
+						<input type="hidden" value="{{myGroup.get('prenom').value}}"
+						id="lastname"	required>
+
+						<input type="hidden" value="{{myGroup.get('destination').value}}"
+						id="destination" required>
+
+						<input type="hidden" value="{{myGroup.get('depart').value}}"
+						id="depart"	required>
+
+						<input type="hidden" value="{{myGroup.get('heureDepart').value}}"
+						id="heure"	required>
+
+						<input type="hidden" value="{{myGroup.get('dateReservation').value}}"
+						id="dateV"	required>
+
+						<input type="hidden" value="{{myGroup.get('email').value}}"
+						id="toemail"	required>
+
+						<input type="hidden" value="{{myGroup.get('Reference').value}}"
+						id="identifiant"	required>
+						
+						<input type="hidden" [(ngModel)]="Reference"
+                         id="Reference" name="Reference" required>
+
+				<input type="hidden" formControlName="id">
+
+				<div class="form-group col-md-3">
+					<label for="">Nom</label>
+					<input type="text" id="nom"  formControlName="nom" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.nom.errors}">
+					
+					<div class="invalid-feedback" *ngIf="submitted && formControls.nom.errors">
+							ce champ est requit
+						</div>
+				</div>
+
+				<div class="form-group col-md-3">
+					<label for="">Prénom</label>
+					<input type="text" id="prenom" formControlName="prenom" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.prenom.errors}">
+					
+					<div class="invalid-feedback" *ngIf="submitted && formControls.prenom.errors">
+							ce champ est requit
+						</div>
+				</div>
+
+				<div class="form-group col-md-3">
+					<label for="">Email</label>
+					<input type="email" name="email" id="email" formControlName="email" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.email.errors}">
+
+					<div class="invalid-feedback" *ngIf="submitted && formControls.email.errors">
+							email invalide
+						</div>
+				</div>
+
+				<div class="form-group col-md-3">
+					<label for="">Telephone</label>
+					<input type="text" id="telephone" formControlName="telephone" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.telephone.errors}">
+
+					<div class="invalid-feedback" *ngIf="submitted && formControls.telephone.errors">
+						<label *ngIf="formControls.telephone.errors.required"> ce champ est requit </label> 
+						<label *ngIf="formControls.telephone.errors.minlenght"> au moins 8 caractères </label> 
+						<label *ngIf="formControls.telephone.errors.pattern">ce champs ne doit contenir que des chiffers </label> 
+
+						</div>
+				</div>
+
+
+				<div class="form-group col-md-3">
+					<label for="">Départ</label>
+					<select name="depart" type="text" id="depart" formControlName="depart" 
+					class="form-control" 
+					[ngClass]="{'is-invalid':submitted && formControls.depart.errors}">
+						<ng-container *ngFor='let ligne of lignes' >
+							<option [value]="ligne.designation" *ngIf="ligne.email == user?.email">
+								{{ligne.designation}}
+							  </option>
+						  </ng-container>
+					</select>
+
+					
+					<div class="invalid-feedback" *ngIf="submitted && formControls.depart.errors">
+							ce champ est requit
+						</div>
+				</div>
+
+
+				<div class="form-group col-md-3">
+					<label for="">Destination</label>
+					<select name="destination" type="text" id="destination" formControlName="destination" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.destination.errors}">
+						<ng-container *ngFor='let ligne of lignes' >
+							<option [value]="ligne.designation" *ngIf="ligne.email == user?.email">
+								{{ligne.designation}}
+							  </option>
+						  </ng-container>
+					</select>
+
+					
+					<div class="invalid-feedback" *ngIf="submitted && formControls.destination.errors">
+							ce champ est requit
+						</div>
+				</div>
+
+
+				<div class="form-group col-md-3">
+					<label for="">Tarif</label>
+					<input type="text" id="tarif" name="tarif"  formControlName="tarif" class="form-control"
+					 [ngClass]="{'is-invalid':submitted && formControls.tarif.errors}">
+					
+					<div class="invalid-feedback" *ngIf="submitted && formControls.tarif.errors">
+							ce champ est requit
+						</div>
+				</div>
+					<div class="form-group col-md-3">
+					<label for="">Date de réservation</label>
+					<input type="date" type="date" id="dateReservation" formControlName="dateReservation" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.dateReservation.errors}">
+					
+					<div class="invalid-feedback" *ngIf="submitted && formControls.dateReservation.errors">
+							ce champ est requit
+						</div>
+				</div>
+
+				<div class="form-group col-md-3">
+                         <label for="">Date de soumission</label>           
+					<input name="dateEnvoi" id="dateEnvoi" [(ngModel)]="test" type="date" formControlName="dateEnvoi" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.dateEnvoi.errors}">
+					
+					<div class="invalid-feedback" *ngIf="submitted && formControls.dateEnvoi.errors">
+							ce champ est requit
+						</div>
+				</div>
+
+
+					<div class="form-group col-md-3">
+					<label for="">Heure de départ</label>
+					<input type="time" id="heureDepart" formControlName="heureDepart" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.heureDepart.errors}">
+					
+					<div class="invalid-feedback" *ngIf="submitted && formControls.heureDepart.errors">
+							ce champ est requit
+						</div>
+				</div>
+
+					<div class="form-group col-md-3">
+					<label for="">Adresse</label>
+					<input type="text" id="adresse" formControlName="adresse" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.adresse.errors}">
+					
+					<div class="invalid-feedback" *ngIf="submitted && formControls.adresse.errors">
+							ce champ est requit
+						</div>
+				</div>
+
+
+					<div class="form-group col-md-3">
+					<label for="">Email de l'agence</label>
+					<input type="email" placeholder="Email de l'agence" id="agence" value="user.email" formControlName="agence" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.agence.errors}">
+					
+
+						<div class="invalid-feedback" *ngIf="submitted && formControls.agence.errors">
+							<label *ngIf="formControls.agence.errors.required"> ce champ est requit </label> 
+							<label *ngIf="formControls.agence.errors.email">ce champs ne doit contenir que des chiffers </label> 
+
+							</div>
+				</div>
+
+				<div *ngIf="myGroup.get('dateReservation').value >= test && myGroup.get('dateReservation').value >= myGroup.get('dateEnvoi').value "  class="form-group col-12">
+					<input type="submit" class="btn btn-primary" value="Submit">
+				</div>
+
+			</form>
+
+		<div class="alert alert-info" *ngIf="showSuccessMessage"> Enregistrement reussie </div>
+		</div>
+
+	
+		<div class="col-md-10">
+
+			<div style="margin-left:15%;">
+			<br>
+
+			<label class="form-label form-inline">Pour rechercher une réservation veuillez entrer le numéro du voyageur</label>
+
+				
+					<input class="form-control" name="searchInput"  #searchInput="ngModel" [(ngModel)]="searchText"  placeholder="Type a name to search...">
+								
+
+			</div>
+				<br>
+				<h3 style="text-align: center;color: green;	"><b>Suivi des demandes de réservations</b></h3>
+
+				<!--button class="btn btn-warning" style="margin-left: 390px;"> <a routerLink ="../transactionPage"> Consulter la liste des transactions effectuées </a> </button-->
+
+				<p style="color: green; margin-left: 30px;"><b> Veuillez remplir le champ tarif:
+					<br> Etape 1: Cliquez sur 'Editer',
+					<br>Etape 2: Compléter le champ "Tarif",
+					<br>Etape 3: Cliquez sur "Soumettre" pour enregistrer la modifications. </b> </p>
+					
+
+				<div class="alert alert-danger" *ngIf="showDeletedMessage"> 
+					Supprimé avec succes
+				</div>
+
+				<table class="table table-dark table-striped">
+					<thead> 
+						<th> Réference </th>
+						<th> Nom </th>
+						<th> email </th>
+						<th> Telephone </th>
+						<th> Depart</th>
+						<th> Destination</th>
+						<th> Tarif</th>
+						<th> Date de réservation</th>
+						<th> Date de soumission</th>
+						<!--th> Date de validation</th-->
+						<th> Heure</th>
+						
+						
+					</thead>
+					
+				<ng-container *ngFor="let reservation of reservations"> 
+
+					<tr *ngIf="reservation.agence == user?.email && filterCondition(reservation)"> 
+						<td>{{ reservation.Reference }}</td>
+						<td>{{ reservation.prenom }}</td>
+						<td id="emailD">{{ reservation.email }}</td>
+						<td>{{ reservation.telephone }}</td>
+						<td>{{ reservation.depart }}</td>
+						<td>{{ reservation.destination }}</td>
+						<td>{{ reservation.tarif }}</td>
+						<td>{{ reservation.dateReservation }}</td>
+						<td>{{ reservation.dateEnvoi}}</td>
+						<!--td>{{ reservation.dateValidation }}</td-->
+						<td>{{ reservation.heureDepart }}</td>
+												
+						<td>
+							
+							<button class="btn btn-outline-success" (click)="ReservationService.populateForm(reservation)">edit</button><br>
+							<button *ngIf="reservation.dateReservation < test" class="btn btn-outline-danger" (click)="onDelete(reservation.id, reservation.email,reservation.nom )">Delete</button>
+							
+						</td>
+					</tr>
+				</ng-container>
+			
+				</table>
+
+
+				<table class="table table-dark table-striped">
+					<thead> 
+						<th> Référence </th>
+						<th> Montant </th>
+						<th> Methode de paiement </th>
+						<th> statut</th>
+						<th> Date de transaction</th>
+						<th> ID de transaction</th>
+						<th> payment ID</th>
+						
+						
+						
+					</thead>
+				<ng-container *ngFor="let transaction of transactions"> 
+					<tr>
+						<td>{{ transaction.Reference }}</td>
+						<td>{{ transaction.amount }}</td>
+						<td>{{ transaction.PaymentMethod }}</td>
+						<td>{{ transaction.status }}</td>
+						<td>{{ transaction.transaction_date }}</td>
+						<td>{{ transaction.transaction_id }}</td>
+						<td>{{ transaction.id  }}</td>
+						
+												
+						<td>
+							
+	<button *ngIf="transaction.transaction_date < test" class="btn btn-outline-danger" (click)="onDeleted(transaction.id)">Delete</button>
+							
+						</td>
+					</tr>
+				</ng-container>
+				</table>
+		
+
+		</div>
+		
+	</div>
+

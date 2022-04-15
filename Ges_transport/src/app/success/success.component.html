@@ -1,0 +1,29 @@
+<br><br><br><br><br><br><br><br><br><br>
+
+<div style="text-align: center; color: green;">
+<div *ngIf="status =='SUCCESSFUL' ;else noTransaction">
+    <h3 > Le paiement de votre réservation a été 
+        réalisé  avec succes </h3>
+
+        <div><br>
+
+          <h5> Montant : {{ amount }} FCFA</h5>
+        <h5>Date de transaction : {{ transaction_date }}</h5>
+        <h5>Methode de paiement : {{ PaymentMethod }} </h5>
+        <h5> Référence de la transaction : {{ Reference }} </h5>
+        <h5> Identifiant de transaction : {{ transaction_id }}</h5>
+        
+        </div>
+
+  </div>
+
+
+</div>
+
+  <ng-template #noTransaction>
+    <h3 style="text-align: center;">Le paiement de votre réservation n'a pas abouti,
+         veuillez reesayer s'il vous plaît</h3>
+</ng-template>
+
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br>

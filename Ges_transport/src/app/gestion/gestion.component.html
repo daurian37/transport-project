@@ -1,0 +1,197 @@
+<br><br><br><br><br><br>
+
+<!-- Début bouton login -->
+
+
+<div class="modal fade" id="myModal"  role="dialog" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"  [ngClass]="{'show' :showModal}">
+    <div class="modal-dialog" role="document">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Connexion</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"  (click)="showModal=false">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+        <div class="modal-body">
+
+        
+  <!-- fin -->
+
+          <form class="p-5" #loginForm="ngForm" (ngSubmit)="login(loginForm)" autocomplete="off">
+
+            <div class="row" *ngIf="authError">
+            <div class="col-12 alert alert-danger">{{ authError?.message }}</div>
+          </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control"  id="email" name="email"
+                ngModel #email="ngModel" placeholder="Enter votre Email">
+            </div>
+            <div class="form-group">
+              <label for="password">Mot de passe</label>
+              <input type="password" class="form-control" name="password" id="password"
+               placeholder="Entrer votre mot de passe" ngModel #password="ngModel">
+            </div>
+           
+       <button type="submit" class="btn btn-success btn-block" >Se connecter</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+            <label> <a href="oublie">Mot de passe oublié</a> </label>    
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  <!-- fin bouton login -->
+
+
+
+<div class="p-0 mr-3 mt-3">
+    
+    <nav class="boutton_connexion">
+        <ul>
+            <li><button type="submit" name="Connexion" class="btn btn-success btn-default px-5" id="myBtn" (click)="showModal=true" > Se connecter </button></li>
+
+        </ul>
+    </nav>
+</div>
+
+<div class="col-7 offset-1">
+<div class="row" *ngIf="authError">
+  <div class="col-7 alert alert-danger">
+  
+  {{ authError?.message }}
+  
+  </div>
+  </div>
+
+  <h1 style="color: green;">Creer un compte agence</h1>
+  <p>Veuillez remplir ce formulaire pour creer un compte Agence</p>
+  <p style="color: red;"><b>Ce formulaire ne concerne que les agences pas les
+    voyageurs, Veuillez contacter l'administrateur de la plateforme pour enregistrer votre agence</b></p>
+  <hr>
+<form [formGroup]="myGroup" (ngSubmit)="onSubmit()" class="row g-2" autocomplete="off" 
+style="border-radius: 10px ; background-image:url(assets/images/banner-bg.jpg);color: white;">
+
+    <input type="hidden" formControlName="id">
+
+    <div class="form-group col-md-5">
+      <label for=""><b> Code d'autorisation</b></label>
+      <input name="admin" type="password" id="admin" formControlName="admin" 
+      class="form-control" [ngClass]="{'is-invalid':submitted && formControls.admin.errors}">
+      
+      <div class="invalid-feedback" *ngIf="submitted && formControls.admin.errors">
+              ce champ est requit
+          </div>
+  </div>
+
+  <div class="form-group col-md-5">
+    <label for=""><b> Pseudo de l'agence</b></label>
+    <input name="nom" type="text" id="nom" formControlName="nom" class="form-control"
+     [ngClass]="{'is-invalid':submitted && formControls.nom.errors}">
+    
+    <div class="invalid-feedback" *ngIf="submitted && formControls.nom.errors">
+            ce champ est requit
+        </div>
+</div>
+
+<div class="form-group col-md-5">
+  <label for=""><b>Localite</b></label>
+  <input name="nom" type="text" id="localite" formControlName="localite" 
+  class="form-control" [ngClass]="{'is-invalid':submitted && formControls.localite.errors}">
+  
+  <div class="invalid-feedback" *ngIf="submitted && formControls.localite.errors">
+          ce champ est requit
+      </div>
+</div>
+
+
+<div class="form-group col-md-5">
+  <label for=""> <b>Telephone</b></label>
+  <input name="telephone" type="text" id="telephone"  formControlName="telephone" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.telephone.errors}">
+
+  <div class="invalid-feedback" *ngIf="submitted && formControls.telephone.errors">
+      <label *ngIf="formControls.telephone.errors.required"> ce champ est requit </label> 
+      <label *ngIf="formControls.telephone.errors.minlenght"> au moins 8 caractères </label> 
+      <label *ngIf="formControls.telephone.errors.pattern">ce champs ne doit contenir que des chiffers </label> 
+
+      </div>
+</div>
+
+<div class="form-group col-md-5">
+  <label for=""><b>Adresse </b></label>
+  <input name="adresse" type="text" id="adresse" formControlName="adresse" 
+  class="form-control" [ngClass]="{'is-invalid':submitted && formControls.adresse.errors}">
+  
+  <div class="invalid-feedback" *ngIf="submitted && formControls.adresse.errors">
+          ce champ est requit
+      </div>
+</div>
+
+<div class="form-group col-md-5">
+  <label for=""><b>Ville </b></label>
+  <input name="ville" type="text" id="ville" formControlName="ville" 
+  class="form-control" [ngClass]="{'is-invalid':submitted && formControls.ville.errors}">
+  
+  <div class="invalid-feedback" *ngIf="submitted && formControls.ville.errors">
+          ce champ est requit
+      </div>
+</div>
+
+  <div class="form-group col-md-5">
+    <label for=""> <b>Email</b></label>
+    <input name="email" type="email" id="email" formControlName="email" 
+    class="form-control" [ngClass]="{'is-invalid':submitted && formControls.email.errors}">
+
+    <div class="invalid-feedback" *ngIf="submitted && formControls.email.errors">
+            email invalide
+        </div>
+</div>
+
+<div class="form-group col-md-5">
+  <label for=""><b> Mot de passe </b></label>
+  <input name="psw" type="password" id="psw" formControlName="psw" 
+  class="form-control" [ngClass]="{'is-invalid':submitted && formControls.psw.errors}">
+  
+  <div class="invalid-feedback" *ngIf="submitted && formControls.psw.errors">
+    <label *ngIf="formControls.psw.errors.required"> ce champ est requit </label> 
+    <label *ngIf="formControls.psw.errors.minlenght"> au moins 6 caractères </label> 
+    </div>
+</div>
+
+<div class="form-group col-md-4">
+  <label for=""><b> Confimer mot de passe</b></label>
+  <input name="pswrepeat" type="password" id="pswrepeat" formControlName="pswrepeat" 
+  class="form-control" [ngClass]="{'is-invalid':submitted && formControls.pswrepeat.errors}">
+  
+  <div class="invalid-feedback" *ngIf="submitted && formControls.psw.errors">
+    <label *ngIf="formControls.pswrepeat.errors.required"> ce champ est requit </label> 
+    <label *ngIf="myGroup.get('psw').value !== myGroup.get('pswrepeat').value"> Les deux mots de passe ne concordent pas </label> 
+    </div>
+
+</div>
+
+  
+
+
+    <hr>
+    <p>En cliquant sur <b>Valider</b>, vous acceptez <a routerLink="../about">nos conditions générales</a>
+     et découvrez comment nous recueillons, utilisons et partageons vos données et 
+      comment nous utilisons les cookies.</p>
+
+<div *ngIf="myGroup.get('psw').value == myGroup.get('pswrepeat').value && myGroup.get('admin').value == 'vincia'">
+  <button type="submit" class="registerbtn" style="border-radius: 10px; margin-left: 30px;">Valider</button>
+</div>
+
+</form> 
+
+<br><br>
+
+
+</div>
+
+

@@ -1,0 +1,7 @@
+{
+    "/epaycongo.com/*": {
+        "target": "payment",
+        "secure": false,
+        "logLevel": "debug"
+    }
+}

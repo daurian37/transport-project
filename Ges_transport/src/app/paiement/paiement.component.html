@@ -1,0 +1,56 @@
+<section class="banner" id="top" style="background-image:url(assets/images/testeA.jpg);">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10" style="margin-left: 80px">
+            
+                <section id="first-tab-group" class="tabgroup">
+                    <div id="tab1">
+                        <div class="submit-form">
+                            <h4>Merci de payer votre réservation afin qu'il soit valider. Le non respect du tarif de réservation 
+                                entrainera l'annulation de votre réservation.Veuillez vérifier le montant saisi avant la soumission du formulaire </h4>
+                           
+                         
+                            <form #form [action]="url" method="POST" class="row g-2">               
+                    
+                                <input type="hidden" [(ngModel)]="sign"
+                                    id="signature" name="signature">
+                            
+  
+                                        <label for="">entrer le montant à payer pour la réservation soumis</label>
+                                        <input type="text" [(ngModel)]="montant"
+                                         id="amount" name="amount" >
+ 
+                                        <input type="hidden" [(ngModel)]="identifiant"
+                                        id="Reference" name="Reference">
+            
+                                        <input type="hidden"
+                                        id="acid" name="acid" [(ngModel)]="acid">
+                                
+                                        <input type="hidden" [(ngModel)]="emailId"
+                                        id="emailId" name="emailId">
+                                
+                                        <input type="hidden" [(ngModel)]="successurl"
+                                        id="successurl" name="successurl">
+                                
+                                        <input type="hidden" [(ngModel)]="cancelurl"
+                                        id="cancelurl" name="cancelurl">
+                                
+                                        <input type="hidden" [(ngModel)]="currency"
+                                        id="currency" name="currency">
+                                
+                                        
+                                        <input type="submit" (click)="form.submit()" name="Valider" class="btn btn-success">
+                
+                              </form>
+                            
+                            </div>
+                    </div>
+
+                </section>
+            </div>
+        </div>
+    </div>
+
+
+</section>
+

@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="application/x-www-form-urlencoded; charset=UTF-8"/>
+  <title>DB-Services</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="assets/images/LOGO_DBSERVICES.jpg">
+  
+</head>
+<body>
+  <app-root></app-root>
+
+<script src="assets/myjs/myjs.js"></script>
+
+<script  type = "text/javascript" 
+ src = "https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js" > </script>
+ 
+ 
+<script  type = "text/javascript" >
+(function() {
+emailjs.init("user_McjsG3S0TVRuDaMpUohdv") ;
+
+emailjs.init("user_rldXUjMlPl4APTuf4zfQs") ;
+})() ;
+</script>
+
+<script>
+  function myFunction() {
+    var input, filter, table, tr, td, i;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[0];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      }
+    }
+  }
+  </script>
+  
+
+
+</body>
+</html>

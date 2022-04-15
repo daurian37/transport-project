@@ -1,0 +1,304 @@
+       
+<!--banner start -->
+<div class="banner-main" style="background-image:url(assets/images/banner.png);">
+    <div class="container">
+       <div id="main_slider" class="carousel slide" data-ride="carousel">  
+       <!-- The slideshow -->
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+            <div class="titlepage-h1">
+            <h1 class="bnner_title" style="color: #10b5fa">Bienvenue sur DB-SERVICES<br>
+            <span style="color: #10b5fa">Votre plaisir est notre priorité</span></h1>
+            <marquee behavior="" direction="left">  <p class="long_text" ><b>Plus besoin de vous deplacer pour
+                 effectuer vos reservations de transport DB-SERVICES est là pour vous </b> </p></marquee>
+            </div>
+            
+    </div>
+
+
+</div> 
+     
+</div>
+</div>
+</div>
+<!--banner end -->
+<!--services start -->
+<div class="services_main">
+    <div class="container">
+        <div class="creative_taital">
+            <h1 class="creative_text" style="color: #10b5fa">A propos de DB-SERVICES</h1>
+            <p style="color: #050000; text-align: center;">DB-SERVICES est une plateforme conçu dans le but d'améliorer les conditions de préparations des voyages par route. L'objectif de la plateforme DB-SERVICES est de vous permettre d'effectuer les reservations de vos tickets à travers différentes agences depuis le confort de chez vous, eh oui!! plus besoin de vous déplacer pour effectuer vos reservations DB-SERVICES est là pour vous. DB-SERVICES est en collaboration avec plusieurs agences de voyages routiers dans le pays afin de 
+                faciliter votre voyage.<br><i>Pas assez disponible pour se rendre à 
+                    l'agence pour la reservation du ticket car chaque seconde est précieuse? 
+                    Plus de souci voici la solution DB-SERVICES est là pour vous.</i></p>
+            
+        </div>
+       
+<!-- Ajout pour comparaison2-->
+
+<div class="touch_section">
+    <div class="container">
+        <h1 class="touch_text" style="color: #10b5fa">Comparateurs de billets d'autocars</h1>
+    </div>
+</div>
+
+<div class="lets_touch_main">
+    <div class="container">
+        <div class="row" style="margin-left: 260px;">
+            
+
+              
+         <form [formGroup]="myGroup" (ngSubmit)="onSubmit()" class="row g-3">
+
+            <h3 style="color: white;">comparez et trouvez les meilleurs tarifs en remplissant ses champs
+                </h3>
+
+<div class="form-group col-md-5">
+    <select name="depart" type="text" id="depart" formControlName="depart">
+        <option value="">Départ</option>
+                             <ng-container *ngFor='let agc of agency'>
+                                
+                                 <option [value]="agc.depart">
+                                     {{agc.depart}}
+                                   </option>
+                               </ng-container>
+                             </select>
+
+</div>
+
+<div class="form-group col-md-5">
+ <select name="arrive" type="text" id="arrive" formControlName="arrive">
+    <option value="">Destination</option>
+<ng-container *ngFor='let agc of agency'>
+
+<option [value]="agc.arrive">
+    {{agc.arrive}}
+  </option>
+</ng-container>
+</select>
+
+</div>
+
+    </form>
+
+        </div>
+    </div>
+
+</div>
+
+    <!--touch_section end -->
+
+    <div class="services_main">
+        <div class="container">  
+              
+            <div>         
+                <section id="cart_items"> 
+                    <div class="container">
+                        <div class="table-responsive cart_info">
+                            <table class="table table-condensed" 
+                            *ngIf="myGroup.get('depart').value !== '' && myGroup.get('arrive').value !== ''" >
+                                <thead style="background-color: green;"> 
+                                    <tr>
+                                        
+                                        <td><b>COMPAGNIE</b></td>
+                                        <td><b>DEPART</b></td>
+                                        <td><b>ARRIVEE</b></td>
+                                        <td><b>PROGRAMMES</b></td>
+                                        <td><b>HEURE</b></td>
+                                        <td><b>TARIF</b></td>
+                                        
+                                    </tr>
+                                </thead>
+                                
+                                <tbody class="table-info">
+                                    <tr *ngFor="let agc of agency">
+  
+                                        <td *ngIf="myGroup.get('depart').value == agc.depart && myGroup.get('arrive').value == agc.arrive">
+    
+                                       <p><b>{{ agc.agence }}</b></p  > 
+                                            
+                                        </td>
+                                        <td *ngIf="myGroup.get('depart').value == agc.depart && myGroup.get('arrive').value == agc.arrive">
+    
+                                            <p>{{ agc.depart}}</p>
+                                        </td>
+    
+                                        <td *ngIf="myGroup.get('depart').value == agc.depart && myGroup.get('arrive').value == agc.arrive">
+    
+                                            <p>{{ agc.arrive}}</p>
+                                        </td>
+    
+                                        <td *ngIf="myGroup.get('depart').value == agc.depart && myGroup.get('arrive').value == agc.arrive">
+                                            <p>{{ agc.programme}}</p>
+                                        </td>
+    
+                                        <td *ngIf="myGroup.get('depart').value == agc.depart && myGroup.get('arrive').value == agc.arrive">
+    
+                                            <p>{{ agc.heure}}</p>
+                                        </td>
+    
+                                        <td *ngIf="myGroup.get('depart').value == agc.depart && myGroup.get('arrive').value == agc.arrive">
+                                            <div class="send_btn">
+                                                <a routerLink="/acceuil">  
+                                                    <button type="submit" class="main_bt"> {{ agc.tarif}} FCFA</button></a>
+                                               </div> 
+                                        </td>
+
+                                    </tr>
+                                    
+                                </tbody>                           
+         
+                            </table>
+                               
+                        </div>
+                    </div>
+    
+                    
+                </section> 
+            </div>
+    
+    <!-- Fin Ajout comparaison2 -->
+
+
+            <div class="section_service_2">
+                <h1 class="service_text" style="color: #10b5fa">Nos agences</h1><br>
+
+                <form class="form-inline">
+					<input class="form-control" name="searchInput" placeholder="to search by name" #searchInput="ngModel" [(ngModel)]="searchText" style="width:100%;">
+					<!--button class="btn btn-outline-primary" (click)="searchText='' ">X</button-->
+				</form>
+
+      <div class="container-fluid row" *ngIf="agences?.length > 0;else noAgences">
+  
+        <!--partie affichage produit-->
+         <div>
+          <div class="row" >
+            <!--test de la pagination-->  
+            <ul>
+                <li *ngFor="let agence of agences | paginate: { itemsPerPage:1, currentPage: p } ; let i=index">
+                    <div class="card " style="width: 16rem; margin-top: 20px; margin-left: 10px; " *ngIf="filterCondition(agence)">
+                                
+                
+                        <div style="text-align:center">
+                           <img class="card-img-top" style="width: 13rem; height: 9rem" src="assets/images/oceanbus.jpg" alt="image produit">
+                        </div>
+                        
+                  
+                        <div class="card-body">
+                          <h2>{{ agence.nom}}</h2>
+                          <h5><b>{{ agence.localite}}-{{ agence.ville}}</b></h5>
+                          <h5>{{ agence.adresse}}</h5>
+                                      
+                          <p class="card-text"></p>
+                          
+                          <a [routerLink]="['index', {id:agence.id,nom:agence.nom,localite:agence.localite,email:agence.email,telephone:agence.telephone}]" class="btn btn-success">Choisir l'agence</a>
+                        </div>
+                        
+                  
+                    </div>
+                </li>
+            </ul>
+   
+            </div>
+            <div style="margin-top:20px;">
+                <pagination-controls (pageChange)="p =$event"></pagination-controls>
+            </div>
+
+          </div>
+        </div>
+      
+        <ng-template #noAgences>
+            <h5 style="text-align: center;">Il n' ya aucune agence pour le moment</h5>
+        </ng-template>
+
+
+<div class="touch_section">
+    <div class="container">
+        <h1 class="touch_text" style="color: #10b5fa">Vos suggestions!</h1>
+    </div>
+</div>
+
+<div class="lets_touch_main">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="input_main">
+                   <div class="container">
+                      <form >
+
+                        <input type="hidden"  id="toName" value="daurian" 
+                        placeholder="destinataire">
+                          
+                        <div class="form-group">
+                          <input  type="text" id="fromName" class="email-bt" 
+                          placeholder="Votre nom" 
+                           required>
+
+                        </div>
+
+                            <div class="form-group">
+                              <textarea  class="massage-bt" placeholder="Quelles sont vos suggestions" 
+                              rows="5" id="msg" required></textarea>
+
+                            </div>
+                
+                            <div class="send_btn">
+                                <button type="submit" (click)="onClick()" class="main_bt"> Envoyer </button>
+                               </div> 
+                      </form>
+                   </div> 
+                                    
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="row">
+                    <div class="col-12">
+                        <p class="lorem_text">Veuillez nous envoyer vos suggestions
+                             afin que nous améliorant la qualité de nos services car notre 
+                             priorité de la plateforme est de vous satisfaire à travers nos services.</p>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</div>
+<!--touch_section end -->
+
+
+<!--Contact_section start -->
+<div class="contact_main">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h1 class="touch_text" style="color: #10b5fa">Nous contactez</h1>
+            </div>
+        </div>
+    </div>
+    <div class="contact_section_2">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="map_icon">
+                        <img src="assets/images/map-icon.png" style="max-width: 100%;padding-left: 30px; ">
+                        <p class="email-text"><a href="#">B69H CITE SCHELTER<br>Brazzaville</a></p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="map_icon">
+                        <img src="assets/images/call-icon.png" style="max-width: 100%;padding-left: 30px;">
+                        <p class="email-text"><a href="#">+242 06 917 6545</a></p>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="map_icon">
+                        <img src="assets/images/email-icon.png" style="max-width: 100%; padding-left: 30px;">
+                        <p class="email-text"><a href="#">dv.balenvokolo@gmail.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+<!--Contact_section end -->
+
+
+

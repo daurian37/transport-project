@@ -1,0 +1,364 @@
+<section class="banner" id="top" style="background-image:url(assets/images/testeA.jpg);">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10" style="margin-left: 80px">
+            
+                   <section id="first-tab-group" class="tabgroup">
+                    <div id="tab1">
+                        <div class="submit-form">
+
+                            <span class="badge badge-warning">10 / 15 places disponibles</span>
+
+                            <h4>Veuillez remplir ses champs pour enregistrer votre reservation à {{ nom }}</h4>
+                           
+                            <p style="color: green;"><b>
+                                Veuillez consulter la grille tarifaire ci-dessous afin d'être informé
+                                des programmes et tarifications de l'agence.</b>
+                            </p>
+
+                            <form [formGroup]="myGroup" (ngSubmit)="onSubmit()" class="row g-4" autocomplete="off">
+                               
+                                    <input type="hidden"  id="toName" value="daurian" 
+                                            placeholder="destinataire">
+                    
+                                            <input type="hidden" value="{{nom}}"
+                                            id="fromName"  required>
+
+                                            <input type="hidden" value="{{localite}}"
+                                            id="fromLocalite"  required>
+
+                                            <input type="hidden" value="{{telephone}}"
+                                            id="fromTelephone"  required>
+
+                                            <input type="hidden" value="{{email}}"
+                                            id="fromEmail"  required>
+                    
+                                                 <input type="hidden" value="une réservation à été soumis à 
+                                                 {{nom}}-{{localite}}-{{telephone}} à la date du {{ test }}
+                                                 il s'agit de {{myGroup.get('nom').value}}-{{myGroup.get('prenom').value}}, Référence {{myGroup.get('Reference').value}}, numero de 
+                                                 portable {{myGroup.get('telephone').value}} .
+                                                  depart {{myGroup.get('depart').value}} à destination de
+                                                   {{myGroup.get('destination').value}} voyage reservé pour le
+                                                 {{myGroup.get('dateReservation').value}} à {{myGroup.get('heureDepart').value}} 
+                                                 en attente de paiement"
+                                                 id="msg" required>
+                     
+                                                 <input type="hidden" value="{{nom}}"
+                                                 id="agency" required>
+                                                 <input type="hidden" value="{{test}}"
+                                                 id="date" required>
+
+                                                 <input type="text" value="{{mnt}}">
+                    
+                                                 <input type="hidden" value="{{myGroup.get('nom').value}}"
+                                            id="name"	required>
+                    
+                                            <input type="hidden" value="{{myGroup.get('prenom').value}}"
+                                            id="lastname"	required>
+
+                                            <input type="hidden" value="{{myGroup.get('depart').value}}"
+                                            id="depart"	required>
+                    
+                                            <input type="hidden" value="{{myGroup.get('destination').value}}"
+                                            id="destination"	required>
+                    
+                                            <input type="hidden" value="{{myGroup.get('heureDepart').value}}"
+                                            id="heure"	required>
+                    
+                                            <input type="hidden" value="{{myGroup.get('dateReservation').value}}"
+                                            id="dateV"	required>
+                    
+                                            <input type="hidden" value="{{myGroup.get('email').value}}"
+                                            id="toemail"	required>
+
+                                            <input type="hidden" value="{{myGroup.get('Reference').value}}"
+						                            id="identifiant">
+
+                                            <input type="hidden" [(ngModel)]="Reference"
+                                            id="Reference" name="Reference" 
+                                            required formControlName="Reference" class="form-control">
+                                                
+                               
+                                <input type="hidden" formControlName="id">
+                
+                                <div class="form-group col-md-3">
+                                    <label for="">Nom</label>
+                                    <input name="nom" type="text" id="nom" formControlName="nom" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.nom.errors}">
+                                    
+                                    <div class="invalid-feedback" *ngIf="submitted && formControls.nom.errors">
+                                            ce champ est requit
+                                        </div>
+                                </div>
+                
+                                <div class="form-group col-md-3">
+                                    <label for="">Prénom</label>
+                                    <input name="prenom" type="text" id="prenom" formControlName="prenom" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.prenom.errors}">
+                                    
+                                    <div class="invalid-feedback" *ngIf="submitted && formControls.prenom.errors">
+                                            ce champ est requit
+                                        </div>
+                                </div>
+                
+                                <div class="form-group col-md-3">
+                                    <label for="">Email</label>
+                                    <input name="email" type="email" id="email" formControlName="email" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.email.errors}">
+                
+                                    <div class="invalid-feedback" *ngIf="submitted && formControls.email.errors">
+                                            email invalide
+                                        </div>
+                                </div>
+                
+                                <div class="form-group col-md-3">
+                                    <label for="">Telephone</label>
+                                    <input name="telephone" type="text" id="telephone"  formControlName="telephone" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.telephone.errors}">
+                
+                                    <div class="invalid-feedback" *ngIf="submitted && formControls.telephone.errors">
+                                        <label *ngIf="formControls.telephone.errors.required"> ce champ est requit </label> 
+                                        <label *ngIf="formControls.telephone.errors.minlenght"> au moins 8 caractères </label> 
+                                        <label *ngIf="formControls.telephone.errors.pattern">ce champs ne doit contenir que des chiffers </label> 
+
+                                        </div>
+                                </div>
+
+
+                                <div class="form-group col-md-3">
+
+                                    <label for="">Départ</label>
+                                    <select name="depart" type="text" id="depart" formControlName="depart"
+                                class="form-control"
+                                [ngClass]="{'is-invalid':submitted && formControls.depart.errors}">
+                                        
+                                                        <ng-container *ngFor='let agc of agency'>
+                                                                
+                                                                 <option [value]="agc.depart" *ngIf="agc.agence==nom">
+                                                                     {{agc.depart}}
+                                                                   </option>
+                                                               </ng-container>
+                                                             </select>
+
+                                                             <div class="invalid-feedback" *ngIf="submitted && formControls.destination.errors">
+                                                                ce champ est requit
+                                                            </div>
+                                
+                                </div>
+                                
+                                <div class="form-group col-md-3">
+
+                                    <label for="">Destination</label>
+
+                                 <select name="arrive" type="text" id="arrive" formControlName="destination"
+                                 class="form-control"
+                                  [ngClass]="{'is-invalid':submitted && formControls.destination.errors}">
+                                  
+                                <ng-container *ngFor='let agc of agency'>
+                                
+                                <option [value]="agc.arrive" *ngIf="agc.agence==nom">
+                                    {{agc.arrive}}
+                                  </option>
+                                </ng-container>
+                                </select>
+
+                                <div class="invalid-feedback" *ngIf="submitted && formControls.destination.errors">
+                                    ce champ est requit
+                                </div>
+                                
+                                </div>
+
+                              <div class="form-group col-md-3">
+                              <label for="">Tarif</label>
+
+                                 <select name="tarif" type="text" id="tarif" formControlName="tarif"
+                                 class="form-control" [(ngModel)]="montant"
+                                  [ngClass]="{'is-invalid':submitted && formControls.tarif.errors}">
+                                  
+                                <ng-container *ngFor='let agc of agency'>
+                                
+                                <option [value]="agc.tarif" 
+                                *ngIf="agc.depart == myGroup.get('depart').value && agc.arrive == myGroup.get('destination').value && agc.agence == nom">
+                                    {{agc.tarif}}
+                                  </option>
+                                </ng-container>
+                                </select>
+
+                                <div class="invalid-feedback" *ngIf="submitted && formControls.tarif.errors">
+                                    ce champ est requit
+                                </div>
+
+                            </div>
+                                    <div class="form-group col-md-3">
+                                    <label for="">Date de réservation</label>
+                                    <input name="dateReservation" id="dateReservation" type="date" formControlName="dateReservation" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.dateReservation.errors}">
+                                    
+                                    <div class="invalid-feedback" *ngIf="submitted && formControls.dateReservation.errors">
+                                            ce champ est requit
+                                        </div>
+                                </div>
+
+                                <div class="form-group">
+                                              
+                               <input name="dateEnvoi" id="dateEnvoi" [(ngModel)]="test" type="hidden" formControlName="dateEnvoi" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.dateEnvoi.errors}">
+                               
+                               <div class="invalid-feedback" *ngIf="submitted && formControls.dateEnvoi.errors">
+                                       ce champ est requit
+                                   </div>
+                           </div>
+
+                        <div class="form-group col-md-3">
+                            <label for="">Heure de départ</label>
+                             <select name="heureDepart" type="text" id="heureDepart" 
+                             formControlName="heureDepart" 
+                        class="form-control"
+                        [ngClass]="{'is-invalid':submitted && formControls.heureDepart.errors}">               
+                            <option value="07:00" selected>
+                                07:00
+                              </option>
+                         
+                              <option value="12:00">
+                                12:00
+                              </option>
+                        </select>
+
+                        <div class="invalid-feedback" *ngIf="submitted && formControls.destination.errors">
+                            ce champ est requit
+                        </div>
+                        </div>
+
+                
+                                    <div class="form-group col-md-3">
+                                    <label for="">Adresse actuelle</label>
+                                    <input name="adresse" type="text" id="adresse" formControlName="adresse" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.adresse.errors}">
+                                    
+                                    <div class="invalid-feedback" *ngIf="submitted && formControls.adresse.errors">
+                                            ce champ est requit
+                                        </div>
+                                </div>
+                
+                
+                                    <div class="form-group">
+                                    
+                                    <input name="agence" type="hidden" [(ngModel)]="email"  id="agence" formControlName="agence" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.agence.errors}">
+                                
+                                </div>
+
+
+                                
+                                <div class="form-group col-md-3">
+                                   
+                                    <input name="numeroagence" type="hidden" [(ngModel)]="telephone" id="numeroagence"  formControlName="numeroagence" class="form-control" [ngClass]="{'is-invalid':submitted && formControls.numeroagence.errors}">
+                
+             
+                                </div>
+
+                                <div  *ngIf="myGroup.get('dateReservation').value >= test && myGroup.get('dateReservation').value >= myGroup.get('dateEnvoi').value && myGroup.get('depart').value !== myGroup.get('destination').value"  class="form-group col-12">
+                                    <button type="submit" class="btn btn-primary">Soumettre </button>
+
+                                </div>
+                
+                            </form>
+                
+                        <div class="alert alert-info" *ngIf="showSuccessMessage"> Soumission du formulaire effectuée </div>
+                        </div>
+                           
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="services_main">
+    <div class="container">
+        
+        <h1 style="color: green; text-align: center;">GRILLE TARIFAIRE</h1>
+
+        <form class="form-inline">
+            <input class="form-control" name="searchInput" placeholder="Rechercher par parcours" 
+             #searchInput="ngModel" [(ngModel)]="searchText" style="width:100%;">
+            <!--button class="btn btn-outline-primary" (click)="searchText='' ">X</button-->
+        </form>
+<br>
+        <div *ngIf="destinations?.length > 0;else noDestinations">         
+            <section id="cart_items"> 
+                <div class="container">
+                    <div class="table-responsive cart_info">
+                        <table class="table table-condensed" >
+                            <thead > 
+                                <tr class="cart_menu" >
+                                    
+                                    <td>PARCOURS</td>
+                                    <td>TARIF</td>
+                                    <td>HEURE</td>
+                                    <td>PROGRAMMES</td>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody class="table-info">
+                                <tr *ngFor="let destination of destinations">
+                                    
+                                    <td *ngIf="destination.agence == nom && filterCondition(destination)">
+
+                                   <p><b> {{ destination.designation }} </b></p  > 
+                                        
+                                    </td>
+                                    <td *ngIf="destination.agence == nom && filterCondition(destination)">
+
+                                        <p>{{destination.tarif }} FCFA</p>
+                                    </td>
+
+                                    <td *ngIf="destination.agence == nom && filterCondition(destination)">
+
+                                        <p>{{destination.heure }} </p>
+                                    </td>
+
+                                    <td *ngIf="destination.agence == nom && filterCondition(destination)">
+
+                                        <p>{{destination.programmes}} </p>
+                                    </td>
+                                   
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section> <!--/#cart_items-->
+        </div>
+        
+        <ng-template #noDestinations>
+            <h5 style="text-align: center;">Il n' ya aucune informations pour le moment</h5>
+        </ng-template>
+        
+
+        <!--Contact_section start -->
+    <div class="contact_main">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h1 class="touch_text">Pour autres informations veuillez contacter l'agence</h1>
+                </div>
+            </div>
+        </div>
+        <div class="contact_section_2">
+            <div class="container">
+                <div class="row">
+                    
+                    <div class="col-sm-6">
+                        <div class="map_icon">
+                            <img src="assets/images/call-icon.png" style="max-width: 100%;padding-left: 30px;">
+                            <p>{{telephone}}</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="map_icon">
+                            <img src="assets/images/email-icon.png" style="max-width: 100%; padding-left: 30px;">
+                            <p>{{email}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!--Contact_section end -->
+
+
+
